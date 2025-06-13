@@ -1,8 +1,97 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI Chat</title>
-  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: #f1f3f6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .chat-container {
+      background: white;
+      width: 100%;
+      max-width: 500px;
+      height: 80vh;
+      border-radius: 16px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    #chat-box {
+      flex: 1;
+      overflow-y: auto;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 10px;
+      background: #fafafa;
+      margin-bottom: 15px;
+    }
+
+    #user-input {
+      resize: none;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 12px;
+      font-size: 14px;
+      width: 100%;
+      height: 70px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      background-color: #4F46E5;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #4338CA;
+    }
+
+    /* Optional: styling for chat messages */
+    .message {
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 10px;
+    }
+
+    .user-message {
+      background-color: #e0e7ff;
+      align-self: flex-end;
+    }
+
+    .ai-message {
+      background-color: #f3f4f6;
+      align-self: flex-start;
+    }
+  </style>
 </head>
 <body>
   <div class="chat-container">
@@ -11,6 +100,30 @@
     <textarea id="user-input" placeholder="Tulis pesan..."></textarea>
     <button onclick="sendMessage()">Kirim</button>
   </div>
-  <script src="script.js"></script>
+
+  <script>
+    function sendMessage() {
+      const input = document.getElementById('user-input');
+      const chatBox = document.getElementById('chat-box');
+      const userText = input.value.trim();
+      if (!userText) return;
+
+      // Tampilkan pesan pengguna
+      const userMsg = document.createElement('div');
+      userMsg.classList.add('message', 'user-message');
+      userMsg.textContent = userText;
+      chatBox.appendChild(userMsg);
+
+      // Simulasi balasan AI
+      const aiMsg = document.createElement('div');
+      aiMsg.classList.add('message', 'ai-message');
+      aiMsg.textContent = "Halo! Ini balasan dari AI.";
+      chatBox.appendChild(aiMsg);
+
+      // Scroll ke bawah dan kosongkan input
+      chatBox.scrollTop = chatBox.scrollHeight;
+      input.value = '';
+    }
+  </script>
 </body>
 </html>
