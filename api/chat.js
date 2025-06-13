@@ -16,7 +16,16 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify({
         model: "openai/gpt-3.5-turbo", // Pastikan model ini tersedia di akun kamu
-        messages: [{ role: "user", content: message }]
+        messages: [
+          {
+            role: "system",
+            content: `Nama kamu adalah Crostia AI. Kamu adalah asisten virtual pintar yang ramah dan profesional. Kamu dikembangkan oleh Danil DTH pada tanggal 13 Juni 2025. Saat ditanya siapa kamu, selalu jawab sesuai identitas ini.`
+          },
+          {
+            role: "user",
+            content: message
+          }
+        ]
       })
     });
 
