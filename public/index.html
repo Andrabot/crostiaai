@@ -1,95 +1,104 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>AI Chat</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
     * {
       box-sizing: border-box;
-      font-family: 'Inter', sans-serif;
       margin: 0;
       padding: 0;
+      font-family: 'Inter', sans-serif;
     }
 
     body {
-      background: #f1f3f6;
+      background: linear-gradient(135deg, #eef2f7, #fdfdff);
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
+      padding: 20px;
     }
 
     .chat-container {
-      background: white;
+      background-color: #ffffff;
       width: 100%;
       max-width: 500px;
-      height: 80vh;
-      border-radius: 16px;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      height: 90vh;
+      border-radius: 20px;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
       display: flex;
       flex-direction: column;
-      padding: 20px;
+      padding: 24px;
     }
 
     h1 {
       text-align: center;
       color: #333;
+      font-size: 24px;
       margin-bottom: 20px;
+      font-weight: 600;
     }
 
     #chat-box {
       flex: 1;
       overflow-y: auto;
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      padding: 10px;
-      background: #fafafa;
-      margin-bottom: 15px;
+      background: #f8f9fb;
+      border: 1px solid #e0e0e0;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+      scroll-behavior: smooth;
     }
 
     #user-input {
       resize: none;
+      padding: 14px;
+      font-size: 15px;
+      border-radius: 12px;
       border: 1px solid #ccc;
-      border-radius: 10px;
-      padding: 12px;
-      font-size: 14px;
       width: 100%;
-      height: 70px;
-      margin-bottom: 10px;
+      height: 80px;
+      margin-bottom: 12px;
+      transition: border 0.2s ease-in-out;
+    }
+
+    #user-input:focus {
+      outline: none;
+      border-color: #4f46e5;
     }
 
     button {
-      background-color: #4F46E5;
-      color: white;
-      padding: 12px;
+      padding: 14px;
+      width: 100%;
       border: none;
-      border-radius: 10px;
-      cursor: pointer;
+      border-radius: 12px;
+      background-color: #4f46e5;
+      color: white;
       font-weight: 600;
-      transition: background 0.3s ease;
+      font-size: 15px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
     }
 
     button:hover {
-      background-color: #4338CA;
+      background-color: #4338ca;
     }
 
-    /* Optional: styling for chat messages */
-    .message {
-      margin-bottom: 10px;
-      padding: 10px;
+    /* Tambahan scrollbar halus */
+    #chat-box::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    #chat-box::-webkit-scrollbar-thumb {
+      background: #ccc;
       border-radius: 10px;
     }
 
-    .user-message {
-      background-color: #e0e7ff;
-      align-self: flex-end;
-    }
-
-    .ai-message {
-      background-color: #f3f4f6;
-      align-self: flex-start;
+    #chat-box::-webkit-scrollbar-track {
+      background: transparent;
     }
   </style>
 </head>
@@ -100,30 +109,6 @@
     <textarea id="user-input" placeholder="Tulis pesan..."></textarea>
     <button onclick="sendMessage()">Kirim</button>
   </div>
-
-  <script>
-    function sendMessage() {
-      const input = document.getElementById('user-input');
-      const chatBox = document.getElementById('chat-box');
-      const userText = input.value.trim();
-      if (!userText) return;
-
-      // Tampilkan pesan pengguna
-      const userMsg = document.createElement('div');
-      userMsg.classList.add('message', 'user-message');
-      userMsg.textContent = userText;
-      chatBox.appendChild(userMsg);
-
-      // Simulasi balasan AI
-      const aiMsg = document.createElement('div');
-      aiMsg.classList.add('message', 'ai-message');
-      aiMsg.textContent = "Halo! Ini balasan dari AI.";
-      chatBox.appendChild(aiMsg);
-
-      // Scroll ke bawah dan kosongkan input
-      chatBox.scrollTop = chatBox.scrollHeight;
-      input.value = '';
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
