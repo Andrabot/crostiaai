@@ -8,97 +8,140 @@
   <style>
     * {
       box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
       margin: 0;
       padding: 0;
-      font-family: 'Inter', sans-serif;
     }
 
     body {
-      background: linear-gradient(135deg, #eef2f7, #fdfdff);
+      background-color: #101113;
+      color: #e5e7eb;
+      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      padding: 20px;
     }
 
     .chat-container {
-      background-color: #ffffff;
+      background-color: #1e1e20;
       width: 100%;
-      max-width: 500px;
-      height: 90vh;
-      border-radius: 20px;
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+      max-width: 800px;
+      height: 95vh;
       display: flex;
       flex-direction: column;
-      padding: 24px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     }
 
     h1 {
-      text-align: center;
-      color: #333;
-      font-size: 24px;
-      margin-bottom: 20px;
+      background-color: #1e1e20;
+      padding: 20px;
+      font-size: 20px;
       font-weight: 600;
+      color: #ffffff;
+      border-bottom: 1px solid #2a2a2e;
+      text-align: center;
     }
 
     #chat-box {
       flex: 1;
+      padding: 24px;
       overflow-y: auto;
-      background: #f8f9fb;
-      border: 1px solid #e0e0e0;
-      border-radius: 12px;
+      background-color: #1e1e20;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .message {
+      max-width: 70%;
+      padding: 14px 18px;
+      border-radius: 18px;
+      font-size: 14px;
+      line-height: 1.5;
+      word-wrap: break-word;
+      white-space: pre-wrap;
+    }
+
+    .ai-message {
+      background-color: #2a2b33;
+      color: #d1d5db;
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+    }
+
+    .user-message {
+      background-color: #4f46e5;
+      color: #ffffff;
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+    }
+
+    .input-area {
       padding: 16px;
-      margin-bottom: 16px;
-      scroll-behavior: smooth;
+      border-top: 1px solid #2a2a2e;
+      background-color: #1e1e20;
+      display: flex;
+      flex-direction: column;
     }
 
     #user-input {
-      resize: none;
+      background-color: #2a2a2e;
+      color: #ffffff;
+      border: none;
       padding: 14px;
-      font-size: 15px;
-      border-radius: 12px;
-      border: 1px solid #ccc;
-      width: 100%;
+      border-radius: 10px;
+      font-size: 14px;
+      resize: none;
       height: 80px;
       margin-bottom: 12px;
-      transition: border 0.2s ease-in-out;
     }
 
     #user-input:focus {
       outline: none;
-      border-color: #4f46e5;
+      background-color: #333338;
     }
 
     button {
-      padding: 14px;
-      width: 100%;
-      border: none;
-      border-radius: 12px;
-      background-color: #4f46e5;
+      background-color: #3f3f46;
       color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      font-size: 14px;
       font-weight: 600;
-      font-size: 15px;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      transition: background-color 0.2s ease;
     }
 
     button:hover {
-      background-color: #4338ca;
+      background-color: #52525b;
     }
 
-    /* Tambahan scrollbar halus */
+    /* Scrollbar styling */
     #chat-box::-webkit-scrollbar {
-      width: 6px;
+      width: 8px;
     }
 
     #chat-box::-webkit-scrollbar-thumb {
-      background: #ccc;
-      border-radius: 10px;
+      background-color: #3a3a3a;
+      border-radius: 8px;
     }
 
     #chat-box::-webkit-scrollbar-track {
-      background: transparent;
+      background-color: transparent;
+    }
+
+    @media (max-width: 600px) {
+      .chat-container {
+        height: 100vh;
+        border-radius: 0;
+      }
+
+      h1 {
+        font-size: 18px;
+      }
     }
   </style>
 </head>
@@ -106,8 +149,10 @@
   <div class="chat-container">
     <h1>AI Chat</h1>
     <div id="chat-box"></div>
-    <textarea id="user-input" placeholder="Tulis pesan..."></textarea>
-    <button onclick="sendMessage()">Kirim</button>
+    <div class="input-area">
+      <textarea id="user-input" placeholder="Tulis pesan..."></textarea>
+      <button onclick="sendMessage()">Kirim</button>
+    </div>
   </div>
   <script src="script.js"></script>
 </body>
