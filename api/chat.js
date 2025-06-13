@@ -1,20 +1,35 @@
 export default async function handler(req, res) {
-  const { message } = req.body;
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Metode tidak diizinkan" });
+  }
 
-  const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
-      "Content-Type": "application/json",
-      "HTTP-Referer": "https://crostiaai.vercel.app/",
-      "X-Title": "Chat AI Vercel"
-    },
-    body: JSON.stringify({
-      model: "openai/gpt-3.5-turbo",
-      messages: [{ role: "user", content: message }]
-    })
-  });
+  try {
+    const { message } = req.body;
 
-  const data = await response.json();
-  res.status(200).json(data);
+    const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
+        "Content-Type": "application/json",
+        "HTTP-Referer": "https://crostiaai.vercel.app", // GANTI sesuai domain Vercel kamu
+        "X-Title": "Chat AI Vercel"
+      },
+      body: JSON.stringify({
+        model: "openai/gpt-3.5-turbo", // Pastikan model ini tersedia di akun kamu
+        messages: [{ role: "user", content: message }]
+      })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.error("OpenRouter API error:", data);
+      return res.status(500).json({ error: "OpenRouter API error", details: data });
+    }
+
+    res.status(200).json(data);
+  } catch (err) {
+    console.error("Server error:", err);
+    res.status(500).json({ error: "Server error", details: err.message });
+  }
 }
