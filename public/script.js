@@ -27,6 +27,16 @@ async function sendMessage() {
 function appendMessage(who, text) {
   const chatBox = document.getElementById("chat-box");
   const msg = document.createElement("div");
-  msg.innerHTML = `<strong>${who}:</strong> ${text}`;
+  msg.classList.add("message");
+
+  if (who === "Kamu") {
+    msg.classList.add("user-message");
+  } else {
+    msg.classList.add("ai-message");
+  }
+
+  msg.textContent = text;
   chatBox.appendChild(msg);
+  chatBox.scrollTop = chatBox.scrollHeight; // auto scroll ke bawah
 }
+
