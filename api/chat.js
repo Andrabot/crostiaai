@@ -6,7 +6,7 @@ export default async function handler(req, res) {
     headers: {
       "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
       "Content-Type": "application/json",
-      "HTTP-Referer": "https://your-site.vercel.app",
+      "HTTP-Referer": "https://crostiaai.vercel.app/",
       "X-Title": "Chat AI Vercel"
     },
     body: JSON.stringify({
