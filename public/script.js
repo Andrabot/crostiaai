@@ -1,10 +1,10 @@
 async function sendMessage() {
   const input = document.getElementById("user-input");
-  const chatBox = document.getElementById("chat-box");
   const message = input.value.trim();
   if (!message) return;
 
   appendMessage("Kamu", message);
+  saveToLocalStorage("Kamu", message);
   input.value = "";
 
   try {
@@ -15,12 +15,14 @@ async function sendMessage() {
     });
 
     const data = await res.json();
-    console.log("API response:", data); // 🐛 Debug log
     const reply = data.choices?.[0]?.message?.content || "(tidak ada balasan)";
     appendMessage("AI", reply);
+    saveToLocalStorage("AI", reply);
   } catch (error) {
     console.error("Fetch error:", error);
-    appendMessage("AI", "(Terjadi kesalahan saat menghubungi AI)");
+    const errorMsg = "(Terjadi kesalahan saat menghubungi AI)";
+    appendMessage("AI", errorMsg);
+    saveToLocalStorage("AI", errorMsg);
   }
 }
 
@@ -40,3 +42,15 @@ function appendMessage(who, text) {
   chatBox.scrollTop = chatBox.scrollHeight; // auto scroll ke bawah
 }
 
+function saveToLocalStorage(who, text) {
+  const history = JSON.parse(localStorage.getItem("chatHistory") || "[]");
+  history.push({ who, text });
+  localStorage.setItem("chatHistory", JSON.stringify(history));
+}
+
+function loadChatHistory() {
+  const history = JSON.parse(localStorage.getItem("chatHistory") || "[]");
+  history.forEach(({ who, text }) => appendMessage(who, text));
+}
+
+window.addEventListener("load", loadChatHistory);
