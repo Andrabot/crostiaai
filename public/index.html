@@ -158,5 +158,33 @@
     </div>
   </div>
   <script src="script.js"></script>
+  <!-- FingerprintJS untuk deteksi user unik -->
+<script type="module">
+  import FingerprintJS from 'https://esm.sh/@fingerprintjs/fingerprintjs';
+
+  FingerprintJS.load().then(fp => {
+    fp.get().then(result => {
+      const visitorId = result.visitorId;
+
+      // Kirim ke API track hanya sekali per user
+      fetch('/api/track', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ visitorId })
+      });
+    });
+  });
+</script>
+
+<!-- Tampilkan total user -->
+<p style="text-align:center;margin:10px 0;">Total User: <span id="total-user">Loading...</span></p>
+<script>
+  fetch('/api/total')
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("total-user").textContent = data.total;
+    });
+</script>
+
 </body>
 </html>
