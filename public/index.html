@@ -185,6 +185,21 @@
       document.getElementById("total-user").textContent = data.total;
     });
 </script>
+<!-- TEST MANUAL TRACKING -->
+<script>
+  fetch("/api/track", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ visitorId: "test_dummy_id_123" })
+  })
+    .then(res => res.json())
+    .then(data => {
+      alert("Hasil /api/track: " + JSON.stringify(data));
+    })
+    .catch(err => {
+      alert("Gagal kirim ke /api/track: " + err.message);
+    });
+</script>
 
 </body>
 </html>
